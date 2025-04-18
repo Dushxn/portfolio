@@ -1,8 +1,57 @@
-# React + Vite
+# 🚀 Tharindu's Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🎨 Welcome to my **personal portfolio website**, built to showcase my skills, projects, and creative journey as a developer and designer.
 
-Currently, two official plugins are available:
+🔗 **Live Preview**: [tharindu-me.netlify.app](https://tharindu-me.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+---
+
+## 🛠️ Built With
+
+- **React.js** ⚛️ – A powerful library for building dynamic user interfaces.
+- **Tailwind CSS** 💨 – For sleek, modern, and fully responsive styling.
+- **Framer Motion** 🎬 – Adds smooth, delightful animations and transitions.
+- **Netlify** 🌐 – For hassle-free deployment and hosting.
+
+---
+
+## ✨ Features
+
+- 💼 Projects section with smooth hover effects & interactive previews
+- 📄 Resume & About section with detailed, elegant design
+- 🌙 Dark mode ready
+- 🖱️ Framer Motion-powered transitions and animations
+- 📱 Fully responsive across all screen sizes
+
+---
+
+## 📸 Preview
+
+![Portfolio Preview GIF](https://tharindu-me.netlify.app/your-preview.gif) <!-- Replace with your actual preview GIF if available -->
+
+---
+
+## 🚧 Still in Progress?
+
+If you're still updating features or adding content:
+> _“This portfolio is a living project – constantly evolving as I learn and grow!”_
+
+---
+
+## 🤝 Let's Connect
+
+- 📧 Email: your-email@example.com
+- 💼 LinkedIn: [your-linkedin](https://linkedin.com/in/yourusername)
+- 🐙 GitHub: [@yourgithub](https://github.com/yourusername)
+
+---
+
+## 📁 Run Locally
+
+```bash
+git clone https://github.com/yourusername/your-portfolio-repo.git
+cd your-portfolio-repo
+npm install
+npm run dev
