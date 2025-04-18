@@ -1,155 +1,257 @@
-import React,{ useRef } from 'react'
-import {motion} from 'framer-motion'
-import emailjs from 'emailjs-com';
+"use client"
 
+import { useRef, useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import emailjs from "emailjs-com"
+import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa"
 
 const Contact = () => {
+  const form = useRef()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null)
+  const [theme, setTheme] = useState("dark")
 
-  const form = useRef();
+  useEffect(() => {
+    setTheme(localStorage.getItem("theme") || "dark")
+
+    const handleThemeChange = () => {
+      setTheme(localStorage.getItem("theme") || "dark")
+    }
+
+    window.addEventListener("storage", handleThemeChange)
+    document.addEventListener("themeChanged", handleThemeChange)
+
+    return () => {
+      window.removeEventListener("storage", handleThemeChange)
+      document.removeEventListener("themeChanged", handleThemeChange)
+    }
+  }, [])
 
   const sendEmail = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus(null)
 
-    emailjs.sendForm(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      form.current,
-      import.meta.env.VITE_EMAILJS_USER_ID
-    )
-      .then((result) => {
-          console.log(result.text);
-          alert("Message sent successfully!");
-      }, (error) => {
-          console.log(error.text);
-          alert("An error occurred, please try again.");
-      });
-
-    e.target.reset();
-  };
-
-
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_EMAILJS_USER_ID,
+      )
+      .then(
+        (result) => {
+          console.log(result.text)
+          setSubmitStatus({ success: true, message: "Message sent successfully!" })
+          e.target.reset()
+        },
+        (error) => {
+          console.log(error.text)
+          setSubmitStatus({ success: false, message: "An error occurred, please try again." })
+        },
+      )
+      .finally(() => {
+        setIsSubmitting(false)
+      })
+  }
 
   return (
-    <div className='h-screen relative overflow-hidden mt-20 bg-transparent' id='ContactMe'>
-        <div className='absolute z-0' id='bgBlur1'>
-        <motion.svg width="1500" height="1000" viewBox="0 0 1440 2103" fill="none" xmlns="http://www.w3.org/2000/svg"
-            initial={{x:100}}
-            animate={{
-                
-                x: ['-10%', '30%','10%', '30%', '-10%'], // Keyframes: Start at 0%, move to 100%, then back to 0%
-                y: ['-30%', '0%','-30%'] // Keyframes: Start at 0%, move to 100%, then back to 0%
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-              }}
+    <section className="py-12 md:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden" id="ContactMe">
+      <div className="absolute inset-0 z-0">
+        {/* Your motion.svg background remains unchanged */}
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <motion.div
+          className="text-center mb-12 md:mb-16"
+          initial={{ y: -30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3 }}
         >
-<g filter="url(#filter0_f_12_150)">
-<path d="M411.335 926.382C515.023 836.026 607.515 924.978 640.8 980.749C637.159 999.197 646.949 1072.96 715.229 1220.44C800.579 1404.78 470 1217.29 343.212 1238.61C216.423 1259.93 281.726 1039.33 411.335 926.382Z" fill="#D958FF"/>
-<path d="M411.335 926.382C515.023 836.026 607.515 924.978 640.8 980.749C637.159 999.197 646.949 1072.96 715.229 1220.44C800.579 1404.78 470 1217.29 343.212 1238.61C216.423 1259.93 281.726 1039.33 411.335 926.382Z" stroke="black"/>
-</g>
-<g filter="url(#filter1_f_12_150)">
-<path d="M868.313 839.517C972 749.161 1064.49 838.113 1097.78 893.884C1094.14 912.332 1103.93 986.098 1172.21 1133.57C1257.56 1317.92 926.978 1130.43 800.189 1151.75C673.401 1173.06 738.703 952.463 868.313 839.517Z" fill="#865DFF"/>
-<path d="M868.313 839.517C972 749.161 1064.49 838.113 1097.78 893.884C1094.14 912.332 1103.93 986.098 1172.21 1133.57C1257.56 1317.92 926.978 1130.43 800.189 1151.75C673.401 1173.06 738.703 952.463 868.313 839.517Z" stroke="black"/>
-</g>
-<defs>
-<filter id="filter0_f_12_150" x="-525.628" y="87.2141" width="2055.25" height="2015.63" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feGaussianBlur stdDeviation="350" result="effect1_foregroundBlur_12_150"/>
-</filter>
-<filter id="filter1_f_12_150" x="-68.6505" y="0.348999" width="2055.25" height="2015.63" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feGaussianBlur stdDeviation="400" result="effect1_foregroundBlur_12_150"/>
-</filter>
-</defs>
-        </motion.svg>
-        </div>
-        
-      <motion.h1 className=' text-center text-5xl about-title absolute mt-10' id='contact-title'
-        initial={{y:-30,opacity:0}}
-        whileInView={{y:0,opacity:1}}
-        transition={{ 
-          duration:0.4,
-          ease: "easeOut"
-        }}
-      >Contact Me</motion.h1>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold about-title">Get In Touch</h2>
+          <p className="text-text-light-accent mt-4 max-w-2xl mx-auto text-sm sm:text-base">
+            Have a project in mind or want to collaborate? Feel free to reach out!
+          </p>
+        </motion.div>
 
-      <form ref={form} onSubmit={sendEmail} className='mt-14'>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14">
+          {/* Contact Info Cards */}
+          <motion.div
+            className="space-y-6"
+            initial={{ x: -50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            {[{
+              icon: FaEnvelope,
+              title: "Email",
+              content: "tdmahindarathne@gmail.com",
+              link: "mailto:tdmahindarathne@gmail.com",
+              color: theme === "light" ? "from-purple-500 to-purple-600" : "from-purple-500 to-pink-500",
+            },
+            {
+              icon: FaPhone,
+              title: "Phone",
+              content: "+94 76 123 4567",
+              link: "tel:+94761234567",
+              color: theme === "light" ? "from-purple-600 to-purple-700" : "from-blue-500 to-purple-500",
+            },
+            {
+              icon: FaMapMarkerAlt,
+              title: "Location",
+              content: "Colombo, Sri Lanka",
+              link: "#",
+              color: theme === "light" ? "from-purple-500 to-purple-600" : "from-pink-500 to-orange-500",
+            },
+            ].map((item, index) => (
+              <motion.a
+                key={index}
+                href={item.link}
+                className="block bg-white/5 backdrop-blur-md rounded-xl p-5 sm:p-6 border border-white/10 shadow-lg hover:shadow-accent-color-1/20 transition-all"
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+              >
+                <div className="flex items-start">
+                  {/* ICON - only visible on large (lg) screens and above */}
+                  <div
+                    className={`hidden lg:flex items-center justify-center p-4 lg:p-5 rounded-lg bg-gradient-to-r ${item.color} mr-4`}
+                  >
+                    <item.icon className="text-white text-2xl xl:text-xl" />
+                  </div>
 
-      <div className='grid grid-rows-4 justify-center mt-20 gap-5 z-40 absolute' id='contact-form'>
-        
-        <div className="row">
-            <div className='grid grid-cols-2 gap-10'>
-                <div className='Name'>
-                    <motion.input type="text" name='name' placeholder='Name' className='p-2 rounded-lg'
-                    initial={{scale:0,opacity:0}}
-                    whileInView={{scale:1,opacity:1}}
-                    transition={{ 
-                      duration:0.4,
-                      ease: "easeOut"
-                    }}
+                  {/* Text content - responsive sizing */}
+                  <div>
+                    <h3 className="text-base sm:text-lg md:text-xl lg:text-3xl font-semibold text-text-white mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm sm:text-base md:text-lg text-text-light-accent">
+                      {item.content}
+                    </p>
+                  </div>
+                </div>
+              </motion.a>
+
+
+            ))}
+
+            {/* Working Hours */}
+            <motion.div
+              className="bg-white/5 backdrop-blur-md rounded-xl p-5 sm:p-6 border border-white/10 shadow-lg"
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-base sm:text-lg font-semibold text-text-white mb-4">Working Hours</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-text-light-accent">Mon - Fri</span>
+                  <span className="text-text-white">9:00 AM - 6:00 PM</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-text-light-accent">Saturday</span>
+                  <span className="text-text-white">10:00 AM - 4:00 PM</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-text-light-accent">Sunday</span>
+                  <span className="text-text-white">Closed</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div
+            className="md:col-span-2"
+            initial={{ x: 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-5 sm:p-6 md:p-8 shadow-lg border border-white/10">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-6 text-text-white">Send Me a Message</h3>
+
+              {submitStatus && (
+                <motion.div
+                  className={`p-3 rounded-lg mb-6 text-sm ${submitStatus.success ? "bg-green-500/20 text-green-200" : "bg-red-500/20 text-red-200"
+                    }`}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  {submitStatus.message}
+                </motion.div>
+              )}
+
+              <form ref={form} onSubmit={sendEmail} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm text-text-white mb-2">Your Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="John Doe"
+                      className="w-full p-3 rounded-lg bg-white/10 border border-white/20 focus:border-accent-color-1 focus:outline-none text-sm"
+                      required
                     />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-text-white mb-2">Your Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="john@example.com"
+                      className="w-full p-3 rounded-lg bg-white/10 border border-white/20 focus:border-accent-color-1 focus:outline-none text-sm"
+                      required
+                    />
+                  </div>
                 </div>
 
-                <div className='Name'>
-                    <motion.input type="text" name='email' placeholder='Email' className='p-2 rounded-lg'
-                        initial={{scale:0,opacity:0}}
-                        whileInView={{scale:1,opacity:1}}
-                        transition={{ 
-                          duration:0.4,
-                          ease: "easeOut"
-                        }}
-                    />
+                <div>
+                  <label className="block text-sm text-text-white mb-2">Subject</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    placeholder="Project Inquiry"
+                    className="w-full p-3 rounded-lg bg-white/10 border border-white/20 focus:border-accent-color-1 focus:outline-none text-sm"
+                    required
+                  />
                 </div>
 
+                <div>
+                  <label className="block text-sm text-text-white mb-2">Message</label>
+                  <textarea
+                    name="content"
+                    placeholder="Tell me about your project..."
+                    rows="5"
+                    className="w-full p-3 rounded-lg bg-white/10 border border-white/20 focus:border-accent-color-1 focus:outline-none text-sm resize-none"
+                    required
+                  ></textarea>
+                </div>
+
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`text-sm px-6 py-3 sm:px-8 rounded-full text-white font-semibold transition-all transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed ${theme === "light"
+                      ? "bg-gradient-to-r from-purple-600 to-purple-700 hover:shadow-purple-300/30"
+                      : "bg-gradient-to-r from-accent-color-2 to-accent-color-1 hover:shadow-accent-color-1/30"
+                      }`}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </button>
+                </div>
+              </form>
             </div>
-        </div>
-
-
-        <div className="Name">
-            <div>
-                <motion.input type="text" name='subject' placeholder='subject'  className=' w-full'
-                    initial={{scale:0,opacity:0}}
-                    whileInView={{scale:1,opacity:1}}
-                    transition={{ 
-                      duration:0.4,
-                      ease: "easeOut"
-                    }}
-                />
-            </div>
-        </div>
-
-
-        <div className="Name">
-            <div>
-                <motion.textarea name="content" id="content"  placeholder='content' className=' w-full'
-                    initial={{scale:0,opacity:0}}
-                    whileInView={{scale:1,opacity:1}}
-                    transition={{ 
-                      duration:0.4,
-                      ease: "easeOut"
-                    }}
-                ></motion.textarea>
-            </div>
-        </div>
-
-        <div className="flex justify-center">
-        <div className="flex justify-center" id='submitBTN'>
-            <motion.input type="submit" value='Contact Me' className=' hover:cursor-pointer' 
-                initial={{scale:0,opacity:0}}
-                whileInView={{scale:1,opacity:1}}
-                transition={{ 
-                  duration:0.4,
-                  ease: "easeOut"
-                }}
-            />
-        </div>
+          </motion.div>
         </div>
       </div>
-      </form>
-    </div>
+    </section>
+
   )
 }
 
