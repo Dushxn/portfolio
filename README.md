@@ -35,7 +35,7 @@
 
 ## 🚧 Still in Progress?
 
-If you're still updating features or adding content:
+
 > _“This portfolio is a living project – constantly evolving as I learn and grow!”_
 
 ---
