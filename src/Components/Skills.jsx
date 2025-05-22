@@ -193,18 +193,17 @@ const Skills = () => {
                 </div>
                 <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                   <motion.div
-  className={`h-full rounded-full ${
-    theme === "light"
-      ? "bg-gradient-to-r from-purple-600 to-pink-500"
-      : "bg-gradient-accent"
-  }`}
-  initial={{ width: 0 }}
-  whileInView={{ width: `${skill.level}%` }}
-  transition={{ duration: 1, delay: index * 0.2 }}
-  viewport={{ once: true }}
-  key={`skill-bar-${theme}-${index}`}
-/>
-
+                    className={`h-full rounded-full ${
+                      theme === "light"
+                        ? "bg-gradient-to-r from-purple-600 to-pink-500"
+                        : "bg-gradient-to-r from-accent-color-2 to-accent-color-1"
+                    }`}
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${skill.level}%` }}
+                    transition={{ duration: 1, delay: index * 0.2 }}
+                    viewport={{ once: true }}
+                    key={`skill-bar-${theme}-${index}`}
+                  />
                 </div>
               </div>
             ))}
