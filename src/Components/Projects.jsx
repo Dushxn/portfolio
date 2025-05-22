@@ -111,7 +111,7 @@ const Projects = () => {
             className={`absolute left-1/2 top-0 bottom-0 w-1 ${
               theme === "light"
                 ? "bg-gradient-to-b from-purple-500/70 via-purple-600/70 to-purple-500/70"
-                : "bg-gradient-to-b from-accent-color-1/50 via-accent-color-2/50 to-accent-color-1/50"
+                : "bg-gradient-to-b from-accent-color-1 via-accent-color-2 to-accent-color-1"
             } hidden md:block`}
             initial={{ height: 0 }}
             whileInView={{ height: "100%" }}
@@ -132,7 +132,9 @@ const Projects = () => {
                   viewport={{ once: true }}
                 >
                   <div
-                    className={`${theme === "light" ? "bg-purple-600" : "bg-accent-color-2"} text-white px-4 py-1 rounded-full font-bold shadow-lg`}
+                    className={`${
+                      theme === "light" ? "bg-purple-600" : "bg-accent-color-1"
+                    } text-white px-4 py-1 rounded-full font-bold shadow-lg`}
                   >
                     {project.year}
                   </div>
@@ -140,14 +142,18 @@ const Projects = () => {
 
                 {/* Timeline node */}
                 <motion.div
-                  className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 ${theme === "light" ? "bg-purple-600" : "bg-accent-color-1"} rounded-full z-10 hidden md:block`}
+                  className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 ${
+                    theme === "light" ? "bg-purple-600" : "bg-accent-color-1"
+                  } rounded-full z-10 hidden md:block`}
                   initial={{ scale: 0 }}
                   whileInView={{ scale: [0, 1.5, 1] }}
                   transition={{ duration: 0.5 }}
                   viewport={{ once: true }}
                 >
                   <motion.div
-                    className={`absolute inset-0 ${theme === "light" ? "bg-purple-600" : "bg-accent-color-1"} rounded-full`}
+                    className={`absolute inset-0 ${
+                      theme === "light" ? "bg-purple-600" : "bg-accent-color-1"
+                    } rounded-full`}
                     animate={{
                       scale: [1, 1.5, 1],
                       opacity: [0.8, 0, 0.8],
@@ -182,7 +188,9 @@ const Projects = () => {
                               {project.technologies.map((tech, techIndex) => (
                                 <span
                                   key={techIndex}
-                                  className={`text-xs ${theme === "light" ? "bg-purple-600/90" : "bg-accent-color-2/80"} text-white px-2 py-1 rounded-full`}
+                                  className={`text-xs ${
+                                    theme === "light" ? "bg-purple-600/90" : "bg-accent-color-2/80"
+                                  } text-white px-2 py-1 rounded-full`}
                                 >
                                   {tech}
                                 </span>

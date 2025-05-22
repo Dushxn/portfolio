@@ -76,6 +76,11 @@
   backdrop-filter: blur(8px);
 }
 
+/* Add gradient background for skill bars in dark mode */
+.bg-gradient-accent {
+  background: linear-gradient(to right, var(--accent-color-2), var(--accent-color-1));
+}
+
 body {
   font-family: var(--font-family-sans);
   background-color: var(--bg-color);
@@ -151,7 +156,7 @@ html {
 
 #Navbar a {
   @media screen and (max-width: 768px) {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -320,10 +325,6 @@ html {
 }
 #skill-text {
   z-index: 10;
-}
-
-#skill-text h3 {
-  color: var(--text-dark-accent);
 }
 
 .icon-wrapper2 {
@@ -600,4 +601,87 @@ textarea {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+}
+
+/* Animation for spotlight */
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translate(-25%, -25%) scale(1);
+  }
+}
+
+.animate-spotlight {
+  animation: spotlight 2s ease 0.5s 1 forwards;
+}
+
+/* Mobile sidebar improvements */
+@media screen and (max-width: 768px) {
+  #Navbar a {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    display: block;
+    width: 100%;
+  }
+
+  #Navbar .BTN {
+    height: auto;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Improve mobile menu background */
+  #Navbar div[data-mobile-menu="true"] {
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--accent-color-2);
+  }
+
+  [data-theme="light"] #Navbar div[data-mobile-menu="true"] {
+    background-color: rgba(248, 249, 250, 0.95);
+    border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+  }
+}
+
+/* Spline scene loader */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--accent-color-2);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Card component styling */
+.bg-card {
+  background-color: var(--bg-color);
+}
+
+.text-card-foreground {
+  color: var(--text-white);
+}
+
+[data-theme="light"] .bg-card {
+  background-color: white;
+}
+
+[data-theme="light"] .text-card-foreground {
+  color: #111827;
 }
